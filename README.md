@@ -13,6 +13,42 @@ Imagine you are teaching a friend about OOP. They mainly want to understand what
 
 ### Response 1
 
+- Encapsulation is grouping related functions or variables together while we hide and protect the data. A major goal this helps achieve is that we reduce complexity, hide our data, increase reusability and we can get more accurate outcomes.
+  Encapsulation code:
+
+```js code
+//building our class! we will be using a person class for this example
+class Person {
+  //we are always going to pass in a name
+  constructor(name) {
+    //declaring the name we are passing will belong to ‘this’ person
+    this.name = name;
+  }
+  //our function!
+  sayHi() {
+    //if we call this function correctly we should recieve a ‘hi, i’m (your name)’
+    console.log(`hi, i'm ${this.name}`);
+  }
+}
+// we are declaring a new person here, (i’m Ells lol)
+const Ells = new Person(“Ells”);
+//and i want to say hi!
+Ells.sayHi();
+//Ben wants to say hi, but would he be able to?
+ben.sayHi();
+//here we declare Taylor as a new person!
+const Taylor = new Person(“Taylor”);
+//and she’s able to use the code we have previously written so no need to rewrite it!
+Taylor.sayHi();
+```
+
+code explanation:
+In the code we are seeing how classes are used to keep the data safe. Both Ells and Taylor can access the inner sayHi() function and give us back a console log BUT Ben isn’t able to. Why? Because he was not given permission to access the sayHi function. If we wanted Ben to be able to sayHi() we would simply have to write in:
+
+```js
+const Ben = new Person(“Ben”);
+```
+
 ## Prompt 2
 
 The following `friendsManager` object is an example of an interface that is **NOT** consistent and predictable:
@@ -35,6 +71,43 @@ friendsManager.friends.push(42);
 Explain how the code is not consistent or predictable, then provide an example in code that uses closure to make it more consistent and predictable.
 
 ### Response 2
+
+- The code is not consistent or predictable because we see that we are able to add friends through friendsManager using addFriend just like we want and true won’t be passed because we clarified we only want strings. Yet, when we get friends.push we are STILL able to pass friends through! We completely override the fact that we !!!ONLY!!! wanted to add it using addFriend.
+
+```js
+//here we are creating a friendsManager class!
+class friendsManager {
+  //we are starting with *some* friends
+  friends = [“taylor”, “ben”];
+  //declaring our name ^^
+  constructor(name) {
+    //name
+    this.name = name;
+  }
+  //our function that will add a new friends name
+  addFriend(friend) {
+    //we will be pushing our new friend into THIS friends array
+    this.friends.push(friend);
+    //if it works we will console log that it worked
+    console.log(`${friend} has been pushed!`);
+  }
+  //so we can look at our friend array
+  returnFriends() {
+    return [...this.friends];
+  }
+}
+//declaring myself
+const ells = new friendsManager(“ells”);
+//adding gonzalo as my friend
+ells.addFriend(“gonzalo”);
+//returning our friend array back with. . .Gonzalo in it!
+console.log(ells.returnFriends());
+//why cant ben add a friend?
+//ben doesnt have access to our functions and data inside! sorry ben :(
+ben.addFriend(“gonzalo”);
+//even though he’s in the array? yes! because he doesn’t have a instance (‘this’) made for him
+ben.returnFriends();
+```
 
 ## Prompt 3
 
